@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<title>Scorepad</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css" text="text/css" media="all">
+
+		<link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
+	</head>
+
+	<body>
+
+		<header>
+			<h2>Scorepad</h2>
+		</header>
+
+		<div id="start_page">
+
+			<div class="wrapper">
+				<div id="my_buttons">
+					<button id="continue">Continue</button>
+					<button id="new_game">New Game</button>
+				</div>
+			
+			</div>
+
+		</div>
+
+
+		<div id="create_game_page">
+			<div id="form_div">
+				<div id="inner_form_div">
+					<div class="choose_other_inputs">
+						<label for="game">What Game?</label>
+						<input type="text" id="game">
+					</div>
+
+					<div class="choose_other_inputs">
+						<label for="players">How many players?</label>
+						<input type="text" id="players">
+					</div>
+					<div class="choose_other_inputs">
+						<label for="rounds">How many rounds?</label>
+						<input type="text" id="rounds">
+					</div>
+					<div id="choose_winner_div">
+						<label>Who wins?</label>
+						<div class="radios">
+							<label for="highest">Highest Score</label>
+							<input type="radio" id="highest" name="game_type" value="highest">
+							<span class="radio" id="high_radio"><div></div></span>
+						</div>
+						<div class="radios">
+							<label for="lowest">Lowest Score</label>							<input type="radio" id="lowest" name="game_type" value="lowest"><span class="radio" id="low_radio"><div></div></span>
+						</div>					
+					</div>
+					
+
+				</div>
+				<button id="create_game">Create Game</button>
+			</div>
+		</div>
+
+		<div id="grid">
+
+		</div>
+
+
+		<script src="scorepad.js"></script>
+	</body>
+
+</html>
