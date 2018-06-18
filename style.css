@@ -8,7 +8,20 @@ body{
 	background-color: #475fff;
 }
 
+
+button{
+	padding: 20px;
+	border-radius: 10px;
+	border-style: solid;
+	border-width: 2px;
+	background-color: #7a8bff;
+	outline: none;
+}
+
 button:hover{
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
 	cursor: pointer;
 }
 
@@ -17,19 +30,28 @@ header{
 	padding: 5px;
 	background-color: #475fff;
 	width: 80%;
+
+	display: flex;
+	align-items: center;
+	justify-content: left;
 }
 
-input[type="radio"]{
-	display: none;
+input[type="radio"], input[type="checkbox"]{
+	/*display: none;*/
+
+	position: absolute;
+	left: 75%;
+	cursor: pointer;
+	opacity: 0;
+
 }
 
-input[type="radio"]:checked + .radio div {
+input[type="radio"]:checked + .radio div, input[type="checkbox"]:checked + .radio div {
 	margin: auto;
 	border-radius: 10px;
 	width: 80%;
 	height: 80%;
 	background-color: green;
-
 }
 
 input[type="text"]{
@@ -39,64 +61,65 @@ input[type="text"]{
 	border-radius: 10px;
 }
 
-.radio{
-	width: 20px;
-	height: 20px;
-	border-style: solid;
-	border-width: 2px;
-	border-radius: 10px;
-	padding: 1px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-}
-
-
-
-button{
-	padding: 20px;
-	border-radius: 10px;
-	border-style: solid;
-	border-width: 2px;
-	background-color: #7a8bff;
-
-}
-
-button:hover{
-	border-style: solid;
-	border-width: 2px;
-	border-color: black;
+input[type="text"]:disabled{
+	background-color: lightgrey;
 }
 
 label{
 	display: inline-block;
-	position: relative;
 	
 }
 
-#choose_winner_div{
-	width: 100%;
-	display: flex;
-
-	flex-direction: column;
-	margin: 10px 0px;
+table {
+	width: 95%;
+	margin: 10px auto;
+	border-collapse: collapse;
 }
 
-#form_div{
-	height: 400px;
+td {
+
+	border-style: solid;
+	border-width: .5px;
+	border-color: black;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	padding: 5px;
+}
+
+th {
+
+	border-radius: 10px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: black;
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	margin: 0px;
+	padding: 7px;
+}
+
+td:nth-child(even){
+	background-color: lightgrey;
+}
+
+
+
+.form_div{
+	height: 100%;
+	min-height: 50px;
 	width: 80%;
 	margin: auto;
-	margin-top: 20px;
 	text-align: center;
 	background-color: rgba(255,255,255,.6);
 	padding: 20px;
-	display: none;
+	/*display: none;*/
 	border-radius: 10px;
 
 }
 
-#inner_form_div{
+.inner_form_div{
 	height: 60%;
 	width: 60%;
 	margin: auto;
@@ -106,27 +129,9 @@ label{
 	justify-content: space-around;
 }
 
-#my_buttons{
-	width: 80%;
-	margin: auto;
-	display: flex;
-	align-items: center;
-	justify-content: space-around;
-}
-
-
-
-#create_game{
-	margin-top: 20px;
-}
-
-#start_page{
-	
-}
-
-.choose_other_inputs{
+.row{
+	position: relative;
 	width: 100%;
-	
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -134,15 +139,40 @@ label{
 }
 
 .radios{
+	position: relative;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	margin: 10px;
+}
+
+.radio{
+	position: absolute;
+	left: 75%;
+	width: 20px;
+	height: 20px;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 10px;
+	padding: 1px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+}
+
+.unlimited_div{
+	width: 80%;
+	
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: 5px;
+	margin: 10px 0px;
 }
 
 .wrapper{
 	margin: auto;
-	margin-top: 20px;
 	height: 300px;
 	width: 80%;
 	display: flex;
@@ -151,3 +181,41 @@ label{
 	background-color: rgba(255,255,255,.6);
 	border-radius: 10px;
 }
+
+
+#choose_winner_div{
+	width: 100%;
+	display: flex;
+
+	flex-direction: column;
+	margin: 10px 0px;
+}
+
+#create_game{
+	margin-top: 20px;
+}
+
+
+#my_buttons{
+	width: 80%;
+	margin: auto;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+#start_game {
+	margin-top: 10px;
+}
+
+#suits{
+	width: 100px;
+	margin-left: 15px;
+}
+
+[v-cloak]{
+	display: none;
+}
+
+
+

@@ -3,6 +3,7 @@
 
 	<head>
 		<title>Scorepad</title>
+
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="style.css" text="text/css" media="all">
 
@@ -13,14 +14,18 @@
 
 		<header>
 			<h2>Scorepad</h2>
+			<img id = "suits" src="suits.png">
 		</header>
 
-		<div id="start_page">
+
+	<div id="app" v-cloak>
+
+		<div v-if="show_start_page" id="start_page">
 
 			<div class="wrapper">
 				<div id="my_buttons">
 					<button id="continue">Continue</button>
-					<button id="new_game">New Game</button>
+					<button @click="new_game_onclick">New Game</button>
 				</div>
 			
 			</div>
@@ -28,46 +33,105 @@
 		</div>
 
 
-		<div id="create_game_page">
-			<div id="form_div">
-				<div id="inner_form_div">
-					<div class="choose_other_inputs">
+		<div v-if="show_create_game_page" id="create_game_page">
+			<div class="form_div">
+				<div class="inner_form_div">
+					<div class="row">
 						<label for="game">What Game?</label>
-						<input type="text" id="game">
+						<input v-model="game_input" placeholder="Spades" type="text" id="game">
 					</div>
 
-					<div class="choose_other_inputs">
+					<div class="row">
 						<label for="players">How many players?</label>
-						<input type="text" id="players">
+						<input v-model="players_input" placeholder="2" type="text" id="players">
 					</div>
-					<div class="choose_other_inputs">
-						<label for="rounds">How many rounds?</label>
-						<input type="text" id="rounds">
+					<div class="row">
+						<label for="rounds">How many rounds?</label> 
+						<input v-model="rounds_input" placeholder="16" type="text" name="rounds" id="rounds_input">
 					</div>
+
+					<div class="row">
+						<label for="rounds">unlimited<input v-model="unlimited_check_box" type="checkbox" id="rounds" name="rounds" value="unlimited"><span class="radio" id="rounds_radio"><div></div></span>
+						</label>
+					</div>
+
 					<div id="choose_winner_div">
 						<label>Who wins?</label>
 						<div class="radios">
-							<label for="highest">Highest Score</label>
-							<input type="radio" id="highest" name="game_type" value="highest">
-							<span class="radio" id="high_radio"><div></div></span>
+							<label for="highest">Highest Score<input v-model="highest_score" type="radio" id="highest" name="game_type" value="highest"><span class="radio" id="high_radio"><div></div></span>
+							</label>
 						</div>
 						<div class="radios">
-							<label for="lowest">Lowest Score</label>							<input type="radio" id="lowest" name="game_type" value="lowest"><span class="radio" id="low_radio"><div></div></span>
-						</div>					
+							<label for="lowest">Lowest Score<input v-model="highest_score" type="radio" id="lowest" name="game_type" value="lowest"><span id="low_radio" class="radio"><div></div></span>
+							</label>
+						</div>			
 					</div>
 					
 
 				</div>
-				<button id="create_game">Create Game</button>
+				<button  @click="create_game_onclick" id="create_game">Create Game</button>
 			</div>
 		</div>
 
-		<div id="grid">
+		<div v-if="show_create_players_page" id="create_players">
+			<div  class = "form_div" >
+			<div class="inner_form_div">
+				<div v-for="i in Number(players_input)">
+
+					<div class="row">
+						<label for="game">Player: {{ i }}</label>
+						<input type="text" v-model = "players[i-1]">
+					</div>	
+
+
+				</div>
+
+				<button @click="start_game_onclick" id="start_game">Start Game</button>
+
+			</div>
+			</div>
 
 		</div>
 
 
-		<script src="scorepad.js"></script>
+		<div v-if="show_grid_page" id="grid">
+			<div class="form_div">
+			
+				<table>
+
+					<th v-for="player in player_objects">{{ player.name }} </th>
+
+					<tr v-for="i in scores.length">
+						<td v-for="player in player_objects">
+							{{ player.score[i-1] }}
+						</td>
+					</tr>
+
+
+
+				</table>
+				<div class="inner_form_div">
+				<div v-if="show_add_scores_page" v-for="player in player_objects">
+						
+						<div class="row">
+							<label>{{ player.name }}</label>
+							<input type="text" v-model="player.score[player.score.length-1]">
+						</div>
+
+					</div>
+					<button @click="add_scores_onclick">Add Scores</button>
+			
+				</div>
+				</div>
+
+
+
+		</div>
+
+	</div>
+
+		<script src="vue.js"></script>
+		<script src="scorepad.js" type="module"></script>
 	</body>
 
 </html>

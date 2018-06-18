@@ -1,33 +1,59 @@
-var new_game_button = document.querySelector("#new_game");
+import data from './data.js'
 
-var start_page_div = document.querySelector("#start_page");
-var form_div = document.querySelector("#form_div");
+const app = new Vue({
+	el: "#app",
+	data,
+	watch: {
+		unlimited_check_box() {
+			rounds_input.disabled = this.unlimited_check_box
+		}
+	},
+	methods: {
+		new_game_onclick(){
+			this.show_start_page = !this.show_start_page
+			this.show_create_game_page = !this.show_create_game_page
+		},
 
-var create_game_button = document.querySelector("#create_game");
+		create_game_onclick(){
+			this.show_create_game_page = false
+			this.show_create_players_page = true
+		},
+		start_game_onclick(){
+			this.show_create_players_page = false
+			this.show_grid_page = true	
+			for(const i in this.players){
+				var player = {
+					name: this.players[i],
+					score: [0,12,54]				
+				}
+				this.player_objects.push(player)
+			}
 
-var low_radio_button = document.querySelector("#low_radio");
-var actual_low_radio_button = document.querySelector("#lowest");
-var high_radio_button = document.querySelector("#high_radio");
-var actual_high_radio_button = document.querySelector("#highest");
+		},
+		add_scores_onclick(){
+			if(!this.show_add_scores_page)
+			{
+				this.show_add_scores_page = true;
+				for(var player in this.player_objects){
+					//console.log("hi")
+					console.log(player);
+					this.player_objects[player].score.push(0);
+					
+				}
 
-//----game variables----//
-var game_type = "high";
-var game_name = "";
-var players = 2;
-var rounds = 0; //0 means unlimited, which is the default value
+				this.scores.push(0);
+			}
+			else{
+				this.show_add_scores_page = false;
+			}
+		}
 
-new_game_button.onclick = function(){
-	start_page_div.style.display = "none";
-	form_div.style.display = "block";
-}
+	}
+	
+})
 
-create_game_button.onclick = function(){
-	form_div.style.display = "none";
-}
 
-low_radio_button.onclick = function() {
-	actual_low_radio_button.checked = true;
-}
-high_radio_button.onclick = function() {
-	actual_high_radio_button.checked = true;
-}
+
+
+
+
