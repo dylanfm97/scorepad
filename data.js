@@ -11,7 +11,8 @@ const data = {
 	highest_score: false,
 	players: [],
 	player_objects: [],
-	scores:[2,31,23]
+	scores: [0],
+	this_row_of_scores: []
 
 }
 

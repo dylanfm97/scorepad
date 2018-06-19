@@ -96,26 +96,32 @@
 
 		<div v-if="show_grid_page" id="grid">
 			<div class="form_div">
-			
+				<h3> {{ game_input }} </h3>
 				<table>
 
 					<th v-for="player in player_objects">{{ player.name }} </th>
 
+					<!-- Scores -->
 					<tr v-for="i in scores.length">
 						<td v-for="player in player_objects">
 							{{ player.score[i-1] }}
 						</td>
 					</tr>
-
+					<!-- Totals -->
+					<tr >
+						<td class="totals" v-for="(player, index) in player_objects">
+							{{ totals[index] }}
+						</td>
+					</tr>
 
 
 				</table>
 				<div class="inner_form_div">
-				<div v-if="show_add_scores_page" v-for="player in player_objects">
+				<div v-if="show_add_scores_page" v-for="(player, index) in player_objects">
 						
 						<div class="row">
 							<label>{{ player.name }}</label>
-							<input type="text" v-model="player.score[player.score.length-1]">
+							<input type="text" v-model="this_row_of_scores[index]">
 						</div>
 
 					</div>

@@ -162,6 +162,14 @@ td:nth-child(even){
 	background-color: white;
 }
 
+.totals{
+	border-style: solid;
+	border-width: 2px;
+	border-right: none;
+	border-left: none;
+
+}
+
 .unlimited_div{
 	width: 80%;
 	
