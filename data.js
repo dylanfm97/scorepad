@@ -11,8 +11,15 @@ const data = {
 	highest_score: false,
 	players: [],
 	player_objects: [],
-	scores: [0],
-	this_row_of_scores: []
+	scores: [],
+	this_row_of_scores: [],
+	valid: {
+		game: true,
+		players: true,
+		rounds: true
+	},
+	game_is_valid: true,
+	invalid_message: ''
 
 }
 

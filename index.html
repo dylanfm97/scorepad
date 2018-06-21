@@ -5,6 +5,7 @@
 		<title>Scorepad</title>
 
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style.css" text="text/css" media="all">
 
 		<link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
@@ -49,6 +50,11 @@
 						<label for="rounds">How many rounds?</label> 
 						<input v-model="rounds_input" placeholder="16" type="text" name="rounds" id="rounds_input">
 					</div>
+
+					<div class="error_message" v-if="!game_is_valid">
+						<h4>{{ invalid_message }}</h4>
+					</div>
+					
 
 					<div class="row">
 						<label for="rounds">unlimited<input v-model="unlimited_check_box" type="checkbox" id="rounds" name="rounds" value="unlimited"><span class="radio" id="rounds_radio"><div></div></span>
