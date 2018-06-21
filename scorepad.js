@@ -12,7 +12,7 @@ const app = new Vue({
 		totals() {
 			var totals = []
 				this.player_objects.forEach( player => {
-					console.log(player)
+					//console.log(player)
 					var this_total = 0
 					for(var i = 0; i < player.score.length; i++){
 						this_total += Number(player.score[i])
@@ -52,23 +52,45 @@ const app = new Vue({
 					return false
 				}
 			}
+
+			this.game_is_valid = true;
+			this.invalid_message = ""
 			return true
 		},
 		validate_player_names(){
-
+			
+			for(var player of this.players){
+				console.log(player)
+				if(!Boolean(player)){
+					this.invalid_message = "please enter a name for each player"
+					this.game_is_valid = false
+					return false
+				}
+			}
+			this.game_is_valid = true
+			this.invalid_message = ""
+			return true
 		},
 		validate_scores(){
 			for(var i in this.this_row_of_scores){
-				if(!Boolean(Number(this.this_row_of_scores[i]))){
-					if(this.this_row_of_scores[i] != 0)
+				if(!Boolean(Number(this.this_row_of_scores[i])) && 
+					this.this_row_of_scores[i] != "0"){
+					//if(this.this_row_of_scores[i] != 0){
+						this.game_is_valid = false;
+						this.invalid_message = "please enter a number for each player"
 						return false
+					//}
 				}
 			}
+			this.game_is_valid = true
+			this.invalid_message = ""
 			return true
 		},
 		new_game_onclick(){
 			this.show_start_page = !this.show_start_page
 			this.show_create_game_page = !this.show_create_game_page
+
+
 		},
 
 		create_game_onclick(){
@@ -79,23 +101,34 @@ const app = new Vue({
 					this.this_row_of_scores.push(0)
 				}
 				this.this_row_of_scores
+
+
+				for(var i = 0; i < Number(this.players_input); i++){
+					console.log(i)
+					this.players.push('')
+				}
+
+
 			} else{
-				console.log("awwwwww try again homey")
-				console.log(this.valid)
+				//console.log("awwwwww try again homey")
+				//console.log(this.valid)
 			}
 
 		},
 		start_game_onclick(){
-			this.show_create_players_page = false
-			this.show_grid_page = true	
-			for(const i in this.players){
-				var player = {
-					name: this.players[i],
-					score: []				
+			if(this.validate_player_names()){
+				this.show_create_players_page = false
+				this.show_grid_page = true	
+				for(const i in this.players){
+					var player = {
+						name: this.players[i],
+						score: []				
+					}
+					this.player_objects.push(player)
 				}
-				this.player_objects.push(player)
+			} else{
+				console.log(":(")
 			}
-
 		},
 		add_scores_onclick(){
 			if(!this.show_add_scores_page)
@@ -122,7 +155,7 @@ const app = new Vue({
 					}
 					this.show_add_scores_page = false;
 				} else{
-					console.log("awww sweaty I'm sorry :((((")
+					//console.log("awww sweaty I'm sorry :((((")
 				}
 			}
 		}
