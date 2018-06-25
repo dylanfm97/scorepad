@@ -18,9 +18,12 @@ const app = new Vue({
 						this_total += Number(player.score[i])
 					}
 					totals.push(this_total)
+					player.total = this_total
 			})
 			return totals
-		}
+		},
+
+
 	},
 	methods: {
 		isValid(){
@@ -60,7 +63,7 @@ const app = new Vue({
 		validate_player_names(){
 			
 			for(var player of this.players){
-				console.log(player)
+				//console.log(player)
 				if(!Boolean(player)){
 					this.invalid_message = "please enter a name for each player"
 					this.game_is_valid = false
@@ -104,7 +107,7 @@ const app = new Vue({
 
 
 				for(var i = 0; i < Number(this.players_input); i++){
-					console.log(i)
+					//console.log(i)
 					this.players.push('')
 				}
 
@@ -127,7 +130,7 @@ const app = new Vue({
 					this.player_objects.push(player)
 				}
 			} else{
-				console.log(":(")
+				//console.log(":(")
 			}
 		},
 		add_scores_onclick(){
@@ -158,7 +161,26 @@ const app = new Vue({
 					//console.log("awww sweaty I'm sorry :((((")
 				}
 			}
+		},
+		end_game_onclick(){
+			this.show_grid_page = false
+			this.show_winner_page = true
+
+			this.updateWinners()
+
+			this.player_objects.sort((a, b) => b.total - a.total)
+			
+		},
+		updateWinners(){
+			let highest_score = 0
+			for(var player of this.player_objects){
+				if(player.total > highest_score){
+					highest_score = player.total
+					this.winner = player.name
+				}
+			}
 		}
+
 
 	}
 	

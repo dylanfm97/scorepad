@@ -72,8 +72,6 @@
 							</label>
 						</div>			
 					</div>
-					
-
 				</div>
 				<button  @click="create_game_onclick" id="create_game">Create Game</button>
 			</div>
@@ -81,38 +79,27 @@
 
 		<div v-if="show_create_players_page" id="create_players">
 			<div  class = "form_div" >
-			<div class="inner_form_div">
-				<div v-for="i in Number(players_input)">
+				<div class="inner_form_div">
+					<div v-for="i in Number(players_input)">
 
-					<div class="row">
-						<label for="game">Player: {{ i }}</label>
-						<input type="text" v-model = "players[i-1]">
-					</div>	
-
-					
+						<div class="row">
+							<label for="game">Player: {{ i }}</label>
+							<input type="text" v-model = "players[i-1]">
+						</div>	
+					</div>
+					<div class="error_message" v-if="!game_is_valid">
+								{{ invalid_message }}
+					</div>
+					<button @click="start_game_onclick" id="start_game">Start Game</button>
 
 				</div>
-
-				<div class="error_message" v-if="!game_is_valid">
-							{{ invalid_message }}
-				</div>
-
-
-				<button @click="start_game_onclick" id="start_game">Start Game</button>
-
 			</div>
-			</div>
-
 		</div>
-
-
 		<div v-if="show_grid_page" id="grid">
 			<div class="form_div">
 				<h3> {{ game_input }} </h3>
 				<table>
-
 					<th v-for="player in player_objects">{{ player.name }} </th>
-
 					<!-- Scores -->
 					<tr v-for="i in scores.length">
 						<td v-for="player in player_objects">
@@ -125,26 +112,36 @@
 							{{ totals[index] }}
 						</td>
 					</tr>
-
-
 				</table>
 				<div class="inner_form_div">
-				<div v-if="show_add_scores_page" v-for="(player, index) in player_objects">
-						
-						<div class="row">
-							<label>{{ player.name }}</label>
-							<input type="text" v-model="this_row_of_scores[index]">
-						</div>
-				</div>
-				<div class="error_message" v-if="!game_is_valid">
-					{{ invalid_message }}
-				</div>
+					<div v-if="show_add_scores_page" v-for="(player, index) in player_objects">
+							
+							<div class="row">
+								<label>{{ player.name }}</label>
+								<input type="text" v-model="this_row_of_scores[index]">
+							</div>
+					</div>
+					<div class="error_message" v-if="!game_is_valid">
+						{{ invalid_message }}
+					</div>
 					<button @click="add_scores_onclick">Add Scores</button>
+					<button @click="end_game_onclick">End Game</button>
+				</div>
+			</div>
+		</div>
+
+		<div v-if="show_winner_page" id="winner_page">
 			
-				</div>
-				</div>
+				<div class="inner_form_div">
+					<img src="wreath.png" width="400" height="400">
+					<h3 id="winner_h3">Winner</h3>
+					<figcaption><h3>{{ winner }}<h3></figcaption>
 
-
+					<div class="row" v-for="(player, index) in player_objects">
+						<h3> {{ index+1 }}: {{player.name}}: {{player.total}}</h3>
+					</div>
+				</div>
+			
 
 		</div>
 

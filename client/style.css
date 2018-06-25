@@ -25,6 +25,13 @@ button:hover{
 	cursor: pointer;
 }
 
+figcaption{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
 h1,h2,h3,h4,h5,h6 {
 	display: inline;
 	text-align: center;
@@ -236,6 +243,19 @@ td:nth-child(even){
 	margin-left: 15px;
 }
 
+#winner_h3{
+	font-size: 2rem;
+	position: absolute;
+	top:30%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#winner_page {
+	text-align: center;
+	position: relative;
+}
+
 [v-cloak]{
 	display: none;
 }
@@ -260,7 +280,6 @@ td:nth-child(even){
 	}
 
 	.inner_form_div{
-		text-align: center;
 		height: 100%;
 		width: 100%;
 	}
