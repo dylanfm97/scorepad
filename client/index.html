@@ -8,8 +8,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		<link rel="stylesheet" href="style.css" text="text/css" media="all">
 
-		<link href="https://fonts.googleapis.com/css?family=Signika" rel="stylesheet">
-	</head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+		</head>
 
 	<body>
 
@@ -25,14 +25,25 @@
 
 			<div class="wrapper">
 				<div id="my_buttons">
-					<button id="continue">Continue</button>
-					<button @click="new_game_onclick">New Game</button>
+					<button @click="continue_onclick" id="continue">CONTINUE</button>
+					<button @click="new_game_onclick">NEW GAME</button>
 				</div>
 			
 			</div>
 
 		</div>
 
+		<div v-if="show_select_game_page">
+			<div class="form_div">
+				<div class="inner_form_div">
+					<div v-for="(index,game) in my_games">
+						<div id="game_button" @click="select_game(game)">
+							<h3>{{ game }}</h3>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 
 		<div v-if="show_create_game_page" id="create_game_page">
 			<div class="form_div">
@@ -80,7 +91,7 @@
 		<div v-if="show_create_players_page" id="create_players">
 			<div  class = "form_div" >
 				<div class="inner_form_div">
-					<div v-for="i in Number(players_input)">
+					<div class="create_player_div" v-for="i in Number(players_input)">
 
 						<div class="row">
 							<label for="game">Player: {{ i }}</label>
@@ -101,7 +112,7 @@
 				<table>
 					<th v-for="player in player_objects">{{ player.name }} </th>
 					<!-- Scores -->
-					<tr v-for="i in scores.length">
+					<tr v-for="i in player_objects[0].score.length">
 						<td v-for="player in player_objects">
 							{{ player.score[i-1] }}
 						</td>
@@ -113,10 +124,10 @@
 						</td>
 					</tr>
 				</table>
-				<div class="inner_form_div">
-					<div v-if="show_add_scores_page" v-for="(player, index) in player_objects">
+				<div class="button_row">
+					<div id="add_scores_div" v-if="show_add_scores_page">
 							
-							<div class="row">
+							<div class="row" v-for="(player, index) in player_objects">
 								<label>{{ player.name }}</label>
 								<input type="text" v-model="this_row_of_scores[index]">
 							</div>
@@ -124,31 +135,35 @@
 					<div class="error_message" v-if="!game_is_valid">
 						{{ invalid_message }}
 					</div>
-					<button @click="add_scores_onclick">Add Scores</button>
-					<button @click="end_game_onclick">End Game</button>
+					<div class="button_row">
+						<button @click="add_scores_onclick">Add Scores</button>
+						<button @click="end_game_onclick">End Game</button>
+					</div>
 				</div>
 			</div>
 		</div>
 
 		<div v-if="show_winner_page" id="winner_page">
-			
 				<div class="inner_form_div">
-					<img src="wreath.png" width="400" height="400">
+					<img src="green_wreath.png" width="400" height="400">
 					<h3 id="winner_h3">Winner</h3>
 					<figcaption><h3>{{ winner }}<h3></figcaption>
-
+					<br>
 					<div class="row" v-for="(player, index) in player_objects">
-						<h3> {{ index+1 }}: {{player.name}}: {{player.total}}</h3>
+						<span> {{ index+1 }}: &nbsp {{player.name}}</span> <span>{{player.total}}</span>
 					</div>
 				</div>
-			
-
 		</div>
-
 	</div>
+
+	<footer>
+		Scorepad
+		created by: Dylan Martinez
+	</footer>
 
 		<script src="vue.js"></script>
 		<script src="scorepad.js" type="module"></script>
+		<script src="api.js" type="module"></script>
 	</body>
 
 </html>

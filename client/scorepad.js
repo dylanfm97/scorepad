@@ -1,4 +1,5 @@
 import data from './data.js'
+import api from './api.js'
 
 const app = new Vue({
 	el: "#app",
@@ -146,6 +147,7 @@ const app = new Vue({
 			else{
 				//after I type in the scores
 				if(this.validate_scores()){
+					//if all the scores are valid
 					var i = 0
 					this.scores.push(0);
 		
@@ -157,6 +159,10 @@ const app = new Vue({
 						i ++
 					}
 					this.show_add_scores_page = false;
+
+					//save the game automatically
+					api.add_game(this.game_input, this.player_objects)
+
 				} else{
 					//console.log("awww sweaty I'm sorry :((((")
 				}
@@ -170,6 +176,29 @@ const app = new Vue({
 
 			this.player_objects.sort((a, b) => b.total - a.total)
 			
+		},
+		continue_onclick(){
+
+			api.get_games().then( games => {
+				console.log(games)
+				this.my_games = games
+			})
+
+
+
+			this.show_select_game_page = true
+			this.show_start_page = false
+		},
+		select_game(game){
+
+			api.get_game(game).then(game => {
+				this.player_objects = game
+			})
+			this.game_input = game
+			
+			this.show_select_game_page = false
+			this.show_grid_page = true
+
 		},
 		updateWinners(){
 			let highest_score = 0

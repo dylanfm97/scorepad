@@ -5,6 +5,7 @@ const data = {
 	show_grid_page: false,
 	show_add_scores_page: false,
 	show_winner_page: false,
+	show_select_game_page: false,
 	game_input: '',
 	players_input: '',
 	rounds_input: '',
@@ -23,7 +24,8 @@ const data = {
 	invalid_message: '',
 	winner: '',
 	second_place: '',
-	third_place: ''
+	third_place: '',
+	my_games: {}
 }
 
 export default data
